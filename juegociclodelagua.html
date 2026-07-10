@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>🌎 El ciclo del agua 💧</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #87ceeb, #dff8ff);
+            margin: 0;
+            padding: 20px;
+
+        }
+
+        h1 {
+
+            color: #0b5394;
+            font-size: 45px;
+            text-shadow: 2px 2px 5px white;
+
+        }
+
+        .instrucciones {
+
+            font-size: 22px;
+            background: white;
+            width: 70%;
+            margin: auto;
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: 0 0 15px gray;
+
+        }
+
+        .contenedor {
+
+            position: relative;
+            width: 1000px;
+            height: 600px;
+            margin: 30px auto;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0px 0px 25px black;
+
+        }
+
+        .contenedor img {
+
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+        }
+
+        .zona {
+
+            position: absolute;
+            width: 190px;
+            height: 65px;
+            border: 4px dashed white;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.8);
+            line-height: 65px;
+            font-weight: bold;
+            font-size: 20px;
+
+        }
+
+        /* ZONAS */
+
+        #evaporacionZona {
+
+            left: 90px;
+            top: 250px;
+
+        }
+
+        #condensacionZona {
+
+            top: 40px;
+            left: 390px;
+
+        }
+
+        #precipitacionZona {
+
+            top: 120px;
+            right: 120px;
+
+        }
+
+        #infiltracionZona {
+
+            bottom: 25px;
+            right: 230px;
+
+        }
+
+        .palabras {
+
+            margin-top: 20px;
+
+        }
+
+        .palabra {
+
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            border-radius: 15px;
+            cursor: grab;
+            transition: 0.3s;
+
+        }
+
+        .palabra:hover {
+
+            transform: scale(1.1);
+
+        }
+
+        #evaporacion {
+
+            background: #ff9800;
+
+        }
+
+        #condensacion {
+
+            background: #03a9f4;
+
+        }
+
+        #precipitacion {
+
+            background: #7e57c2;
+
+        }
+
+        #infiltracion {
+
+            background: #4caf50;
+
+        }
+
+        button {
+
+            margin-top: 20px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 15px;
+            font-size: 22px;
+            background: #ff4081;
+            color: white;
+            cursor: pointer;
+
+        }
+
+        button:hover {
+
+            transform: scale(1.05);
+
+        }
+
+        #mensaje {
+
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>🌎 EL CICLO DEL AGUA 💧</h1>
+
+    <div class="instrucciones">
+
+        Analiza la imagen y arrastra cada palabra al lugar correcto y pulsa 
+        <b>"Comprobar"</b>.
+
+    </div>
+
+    <div class="contenedor">
+
+        <img src="ciclo.jpg">
+
+        <div class="zona" id="evaporacionZona" data-correcta="Evaporación"></div>
+
+        <div class="zona" id="condensacionZona" data-correcta="Condensación"></div>
+
+        <div class="zona" id="precipitacionZona" data-correcta="Precipitación"></div>
+
+        <div class="zona" id="infiltracionZona" data-correcta="Infiltración"></div>
+
+    </div>
+
+    <div class="palabras">
+
+        <div class="palabra" id="evaporacion" draggable="true">
+            ☀️ Evaporación
+        </div>
+
+        <div class="palabra" id="condensacion" draggable="true">
+            ☁️ Condensación
+        </div>
+
+        <div class="palabra" id="precipitacion" draggable="true">
+            🌧️ Precipitación
+        </div>
+
+        <div class="palabra" id="infiltracion" draggable="true">
+            🌱 Infiltración
+        </div>
+
+    </div>
+
+    <button onclick="verificar()">
+
+        ⭐ Comprobar ⭐
+
+    </button>
+
+    <div id="mensaje"></div>
+
+    <script>
+
+        const palabras = document.querySelectorAll(".palabra");
+        const zonas = document.querySelectorAll(".zona");
+
+        palabras.forEach(palabra => {
+
+            palabra.addEventListener("dragstart", function(e) {
+
+                e.dataTransfer.setData("texto", this.innerText);
+
+            });
+
+        });
+
+        zonas.forEach(zona => {
+
+            zona.addEventListener("dragover", function(e) {
+
+                e.preventDefault();
+
+            });
+
+            zona.addEventListener("drop", function(e) {
+
+                e.preventDefault();
+
+                let texto = e.dataTransfer.getData("texto");
+
+                this.innerHTML = texto;
+
+                if (texto.includes("Evaporación")) {
+
+                    this.dataset.respuesta = "Evaporación";
+
+                }
+
+                if (texto.includes("Condensación")) {
+
+                    this.dataset.respuesta = "Condensación";
+
+                }
+
+                if (texto.includes("Precipitación")) {
+
+                    this.dataset.respuesta = "Precipitación";
+
+                }
+
+                if (texto.includes("Infiltración")) {
+
+                    this.dataset.respuesta = "Infiltración";
+
+                }
+
+            });
+
+        });
+
+        function verificar() {
+
+            let puntos = 0;
+
+            zonas.forEach(zona => {
+
+                if (zona.dataset.respuesta === zona.dataset.correcta) {
+
+                    puntos++;
+
+                }
+
+            });
+
+            const mensaje = document.getElementById("mensaje");
+
+            if (puntos === 4) {
+
+                mensaje.innerHTML = "🎉 ¡Excelente! ¡Completaste el ciclo del agua! 🏆";
+
+                mensaje.style.color = "green";
+
+            } else {
+
+                mensaje.innerHTML =
+                    "⭐ Has conseguido " + puntos + " de 4 puntos. ¡Sigue intentándolo!";
+
+                mensaje.style.color = "red";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
