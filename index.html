@@ -4,8 +4,9 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>🌎 El ciclo del agua 💧</title>
+    <title>🌈 Aventura del ciclo del agua 💧</title>
 
     <style>
 
@@ -22,8 +23,8 @@
         h1 {
 
             color: #0b5394;
-            font-size: 45px;
-            text-shadow: 2px 2px 5px white;
+            font-size: 42px;
+            text-shadow: 2px 2px 8px white;
 
         }
 
@@ -31,7 +32,8 @@
 
             font-size: 22px;
             background: white;
-            width: 70%;
+            width: 80%;
+            max-width: 900px;
             margin: auto;
             padding: 15px;
             border-radius: 20px;
@@ -42,12 +44,13 @@
         .contenedor {
 
             position: relative;
-            width: 1000px;
-            height: 600px;
+            width: 95%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
             margin: 30px auto;
             border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0px 0px 25px black;
+            box-shadow: 0 0 25px black;
 
         }
 
@@ -55,57 +58,60 @@
 
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
 
         }
 
         .zona {
 
             position: absolute;
-            width: 190px;
-            height: 65px;
+            width: 18%;
+            min-width: 120px;
+            height: 60px;
             border: 4px dashed white;
             border-radius: 15px;
-            background: rgba(255,255,255,0.8);
-            line-height: 65px;
+            background: rgba(255,255,255,0.85);
+            font-size: 18px;
             font-weight: bold;
-            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
         }
 
-        /* ZONAS */
+        /* Posiciones */
 
         #evaporacionZona {
 
-            left: 90px;
-            top: 250px;
+            left: 6%;
+            top: 48%;
 
         }
 
         #condensacionZona {
 
-            top: 40px;
-            left: 390px;
+            left: 40%;
+            top: 8%;
 
         }
 
         #precipitacionZona {
 
-            top: 120px;
-            right: 120px;
+            right: 8%;
+            top: 20%;
 
         }
 
         #infiltracionZona {
 
-            bottom: 25px;
-            right: 230px;
+            right: 18%;
+            bottom: 5%;
 
         }
 
         .palabras {
 
-            margin-top: 20px;
+            margin-top: 25px;
 
         }
 
@@ -114,9 +120,9 @@
             display: inline-block;
             margin: 10px;
             padding: 15px 25px;
+            color: white;
             font-size: 22px;
             font-weight: bold;
-            color: white;
             border-radius: 15px;
             cursor: grab;
             transition: 0.3s;
@@ -156,13 +162,14 @@
         button {
 
             margin-top: 20px;
-            padding: 15px 35px;
+            margin-left: 10px;
+            padding: 15px 30px;
             border: none;
             border-radius: 15px;
-            font-size: 22px;
-            background: #ff4081;
+            font-size: 20px;
             color: white;
             cursor: pointer;
+            transition: 0.3s;
 
         }
 
@@ -172,11 +179,52 @@
 
         }
 
+        #comprobar {
+
+            background: #ff4081;
+
+        }
+
+        #reiniciar {
+
+            background: #00b894;
+
+        }
+
         #mensaje {
 
-            font-size: 30px;
+            font-size: 28px;
             font-weight: bold;
-            margin-top: 20px;
+            margin-top: 25px;
+
+        }
+
+        .estrellas {
+
+            font-size: 40px;
+            animation: saltar 1s infinite;
+
+        }
+
+        @keyframes saltar {
+
+            0% {
+
+                transform: translateY(0);
+
+            }
+
+            50% {
+
+                transform: translateY(-10px);
+
+            }
+
+            100% {
+
+                transform: translateY(0);
+
+            }
 
         }
 
@@ -186,18 +234,17 @@
 
 <body>
 
-    <h1>🌎 EL CICLO DEL AGUA 💧</h1>
+    <h1>🌈💧 ¡Aventura del ciclo del agua! ☁️🌞</h1>
 
     <div class="instrucciones">
 
-        Analiza la imagen y arrastra cada palabra al lugar correcto y pulsa 
-        <b>"Comprobar"</b>.
+        Ayuda a las gotas de agua 💧 a encontrar su lugar correcto arrastrando las palabras.
 
     </div>
 
     <div class="contenedor">
 
-        <img src="ciclo.jpg">
+        <img src="ciclo.jpg" alt="Ciclo del agua">
 
         <div class="zona" id="evaporacionZona" data-correcta="Evaporación"></div>
 
@@ -212,26 +259,40 @@
     <div class="palabras">
 
         <div class="palabra" id="evaporacion" draggable="true">
+
             ☀️ Evaporación
+
         </div>
 
         <div class="palabra" id="condensacion" draggable="true">
+
             ☁️ Condensación
+
         </div>
 
         <div class="palabra" id="precipitacion" draggable="true">
+
             🌧️ Precipitación
+
         </div>
 
         <div class="palabra" id="infiltracion" draggable="true">
+
             🌱 Infiltración
+
         </div>
 
     </div>
 
-    <button onclick="verificar()">
+    <button id="comprobar" onclick="verificar()">
 
-        ⭐ Comprobar ⭐
+        ⭐ Comprobar
+
+    </button>
+
+    <button id="reiniciar" onclick="reiniciar()">
+
+        🔄 Jugar otra vez
 
     </button>
 
@@ -314,18 +375,47 @@
 
             if (puntos === 4) {
 
-                mensaje.innerHTML = "🎉 ¡Excelente! ¡Completaste el ciclo del agua! 🏆";
+                mensaje.innerHTML = `
+
+                <div class="estrellas">
+
+                    🎉 ⭐ 🏆 ⭐ 🎉
+
+                </div>
+
+                ¡Excelente! ¡Completaste el ciclo del agua! 🌎💧
+
+                `;
 
                 mensaje.style.color = "green";
 
-            } else {
+            }
+
+            else {
 
                 mensaje.innerHTML =
-                    "⭐ Has conseguido " + puntos + " de 4 puntos. ¡Sigue intentándolo!";
 
-                mensaje.style.color = "red";
+                    "⭐ Obtuviste " + puntos +
+
+                    " de 4 puntos. ¡Sigue intentando! 💪";
+
+                mensaje.style.color = "#d63031";
 
             }
+
+        }
+
+        function reiniciar() {
+
+            zonas.forEach(zona => {
+
+                zona.innerHTML = "";
+
+                zona.dataset.respuesta = "";
+
+            });
+
+            document.getElementById("mensaje").innerHTML = "";
 
         }
 
